@@ -1,36 +1,58 @@
 {
-	// "layer": "top", // Waybar at top layer
-	// "position": "bottom", // Waybar position (top|bottom|left|right)
-	"height": 20, // Waybar height (to be removed for auto height)
-	// "width": 1280, // Waybar width
+	"height": 20,
+	"spacing": 2,
 
-	// Choose the order of the modules
+	"gtk-layer-shell": true,
+
 	"modules-left": ["hyprland/workspaces"],
-	"modules-right": [ "hyprland/language", "custom/disk_home", "custom/disk_root","temperature", "cpu", "memory", "network", "backlight", "pulseaudio", "clock", "battery", "idle_inhibitor", "tray"],
+	"modules-right": [ 
+	 "hyprland/language",
+	 "custom/disk_home",
+	 "custom/disk_root",
+	 "temperature",
+	 "cpu",
+	 "memory",
+	 "network",
+	 "backlight",
+	 "pulseaudio",
+	 "clock",
+	 "battery", 
+	 "idle_inhibitor", 
+	 "tray"
+	],
 
-	// Modules configuration
 	"hyprland/workspaces": {
 		"disable-scroll": true,
 	 	"all-outputs": false,
 	 	"format": "{icon}",
-	 	"format-icons": {
-	 		"1":"一",
-	 		"2":"二",
-	 		"3":"三",
-	 		"4":"四",
-	 		"5":"五",
-      "6":"六",
-      "7":"七",
-      "8":"八",
-      "9":"九",
-      "10":"十",
+		"format-icons": {
+			"1":"一",
+			"2":"二",
+			"3":"三",
+			"4":"四",
+			"5":"五",
+			"6":"六",
+			"7":"七",
+			"8":"八",
+			"9":"九",
+			"10":"十",
+			"11":"十一",
+			"12":"十二",
+			"13":"十三",
+			"14":"十四",
+			"15":"十五",
+			"16":"十六",
+			"17":"十七",
+			"18":"十八",
+			"19":"十九",
+			"20":"二十",
       "sort-by-number": true
 	 	},
-    "persistent-workspaces": 
-    {
-      "DP-2": [1, 2, 3, 4, 5],
-      "DP-3": [6, 7, 8, 9, 10],
-    },
+    	"persistent-workspaces": 
+    	{
+     	 	"DP-1": [1, 2, 3, 4, 5],
+    		"DP-2": [6, 7, 8, 9, 10]
+   		}
 	 },
 
 	"custom/disk_home": {
@@ -43,10 +65,10 @@
 		"interval": 30,
 		"exec": "df -h --output=avail / | tail -1 | tr -d ' '"
 	},
-    "hyprland/language": {
-        "format": "{}",
-        "max-length": 18
-    },
+    // "hyprland/language": {
+    //     "format": "{}",
+    //     "max-length": 18
+    // },
 	"temperature": {
 		"thermal-zone": 2,
 		"hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
@@ -55,50 +77,38 @@
 		"format": "<span color='#e88939'>{icon}</span> {temperatureC}°C",
 		"format-icons": ["", "", ""]
 	},
-	"cpu": {
-		"format": "cpu {usage}%",
-		"tooltip": false
-	},
+    "cpu": {
+        "format": "CPU {usage}% \uf2db",
+        "states": {"warning": 70, "critical": 90 }
+    },
 	"memory": {
-		"format": "ram {used:0.1f}G"
+		"format": "ram {used:0.1f}G \uf538"
 	},
 	"network": {
 		"family": "ipv4",
-		// "interface": "wlp2*", // (Optional) To force the use of this interface
 		"format-wifi": "<span color='#589df6'></span> <span color='gray'>{essid}</span> {frequency} <span color='#589df6'>{signaldBm} dB</span> <span color='#589df6'>⇵</span> {bandwidthUpBits}/{bandwidthDownBits}",
-		"format-ethernet": "{ifname}: {ipaddr}/{cidr}",
+		"format-ethernet": "\uf063 {bandwidthDownBits} | \uf062 {bandwidthUpBits} | {ifname}: {ipaddr}/{cidr}",
 		"format-linked": "{ifname} (No IP)",
 		"format-disconnected": "Disconnected ⚠",
 		"format-alt": "{ifname}: {ipaddr}/{cidr}",
 		"interval": 5
 	},
-	"pulseaudio": {
-		// "scroll-step": 1, // %, can be a float
-		"format": "{icon} {volume}% {format_source}",
-		"format-muted": "🔇 {format_source}",
-		"format-bluetooth": "{icon} {volume}% {format_source}",
-		"format-bluetooth-muted": "🔇 {format_source}",
-
-		"format-source": " {volume}%",
-		"format-source-muted": "",
-
-		"format-icons": {
-			"headphones": "",
-			"handsfree": "",
-			"headset": "",
-			"phone": "",
-			"portable": "",
-			"car": "",
-			"default": ["🔈", "🔉", "🔊"]
-		},
-		"on-click": "pavucontrol",
-		"on-click-right": "ponymix -N -t source toggle"
-	},
+    "pulseaudio": {
+        "format": "{volume}% {icon} {format_source}",
+        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format-bluetooth-muted": "{icon} {format_source}",
+	"format-muted": " {format_source}",
+        "format-source": "{volume}% \uf130",
+        "format-source-muted": "\uf131",
+        "format-icons": {
+	  "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
 	"clock": {
 		"interval": 1,
 		"format": "{:%H:%M:%S}",
 		"tooltip-format": "{:%Y-%m-%d | %H:%M:%S}"
-		// "format-alt": "{:%Y-%m-%d}"
 	},
 	"idle_inhibitor": {
 		"format": "<span color='#589df6'>{icon}</span>",
@@ -106,10 +116,9 @@
 			"activated": "",
 			"deactivated": ""
 		},
-		"on-click-right": "swaylock -eFfki ~/.config/lockscreen-origin.png"
+		"on-click-right": "hyprlock"
 	},
 	"tray": {
-		// "icon-size": 21,
 		"spacing": 10
 	},
 }
